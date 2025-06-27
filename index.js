@@ -7,10 +7,18 @@ const morgan = require('morgan');
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
+const cors = require('cors');
 
 const app = express();
 dotenv.config();
 
+// ✅ CORS Configuration
+app.use(cors({
+    origin: process.env.FRONTEND_URL || "",
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type",
+    credentials: true
+}));
 
 mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log("Connected to MongoDB..!"))
